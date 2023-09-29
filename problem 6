@@ -1,13 +1,28 @@
-def tower_of_hanoi(n, source, auxiliary, target):
-    if n == 1:
-        print(f"Move disk 1 from {source} to {target}")
-        return
-    tower_of_hanoi(n-1, source, target, auxiliary)
-    print(f"Move disk {n} from {source} to {target}")
-    tower_of_hanoi(n-1, auxiliary, source, target)
+def is_operator(char):
+
+    return char in "+-*/"
+
+def postfix_to_prefix(postfix_expression):
+    stack = []
+
+    for char in postfix_expression:
+        if not is_operator(char):
+            
+            stack.append(char)
+        else:
+            
+            operand2 = stack.pop()
+            operand1 = stack.pop()
+            
+            prefix = char + operand1 + operand2
+            stack.append(prefix)
+
+    
+    return stack[0]
 
 
-num_disks = int(input("Enter the number of disks: "))
+postfix_expression = input("Enter a postfix expression: ")
 
 
-tower_of_hanoi(num_disks, 'A', 'B', 'C')
+prefix_expression = postfix_to_prefix(postfix_expression)
+print("Prefix expression:", prefix_expression)
